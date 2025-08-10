@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text to Speech</title>
+    <style>
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(-45deg, #ff416c, #ff4b2b, #1e3c72, #2a5298);
+            background-size: 400% 400%;
+            animation: gradientBG 12s ease infinite;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            margin-top: 50px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+        form {
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            border-radius: 15px;
+            width: 60%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            backdrop-filter: blur(8px);
+        }
+        textarea {
+            width: 90%;
+            height: 150px;
+            border-radius: 10px;
+            border: none;
+            padding: 15px;
+            font-size: 16px;
+            resize: none;
+            outline: none;
+        }
+        select {
+            margin-top: 10px;
+            padding: 8px;
+            border-radius: 10px;
+            border: none;
+            font-size: 14px;
+        }
+        button {
+            margin-top: 15px;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(90deg, #ff416c, #ff4b2b);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        button:hover {
+            transform: scale(1.05);
+            background: linear-gradient(90deg, #ff4b2b, #ff416c);
+        }
+        .audio-section {
+            margin-top: 20px;
+        }
+        audio {
+            width: 80%;
+            outline: none;
+            margin-top: 10px;
+        }
+        .download-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: linear-gradient(90deg, #00c6ff, #0072ff);
+            color: white;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .download-btn:hover {
+            transform: scale(1.05);
+            background: linear-gradient(90deg, #0072ff, #00c6ff);
+        }
+    </style>
+</head>
+<body>
+    <h1>🎤 Text to Speech Converter</h1>
+    <form method="POST">
+        <textarea name="text" placeholder="Type your text here..."></textarea><br>
+
+        <label for="lang">🌐 Select Language:</label>
+        <select name="lang">
+            <option value="en">English</option>
+            <option value="ur">Urdu</option>
+        </select><br>
+
+        <button type="submit">Convert</button>
+    </form>
+
+    {% if audio_file %}
+        <div class="audio-section">
+            <h2>🔊 Your Audio:</h2>
+            <audio controls autoplay>
+                <source src="{{ url_for('static', filename=audio_file) }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <br>
+            <a href="{{ url_for('static', filename=audio_file) }}" download class="download-btn">⬇ Download MP3</a>
+        </div>
+    {% endif %}
+</body>
+</html>
